@@ -33,8 +33,28 @@ public class BasicQueryPlanner implements QueryPlanner {
       for (Plan nextplan : plans)
          p = new ProductPlan(p, nextplan);
       
+      //TODO Insert our code here!
+      
+      System.out.println("Right before nested terms handling in BasicQueryPlanner");
+      
+      if(!data.pred().nestedTerms().isEmpty()){
+    	  for(NestedTerm term : data.pred().nestedTerms()){
+    		  if(term.getNegated()){
+    			  p = new AntijoinPlan(p, createPlan(term.getQueryData(),tx), term.getNestedPred());
+    		  } else{
+    			  p = new SemijoinPlan(p, createPlan(term.getQueryData(),tx), term.getNestedPred());
+    		  }
+    	  }
+      }
+      
+      System.out.println("Right after nested terms handling in BasicQueryPlanner");
+
+      
       //Step 3: Add a selection plan for the predicate
-      p = new SelectPlan(p, data.pred());
+      p = new SelectPlan(p, data.pred().simplePred());
+      
+      //Maybe?       p = new SelectPlan(p, data.pred().simpleTerms());
+
       
       //Step 4: Project on the field names
       p = new ProjectPlan(p, data.fields());

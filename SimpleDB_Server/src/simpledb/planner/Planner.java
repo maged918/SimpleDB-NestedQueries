@@ -24,6 +24,7 @@ public class Planner {
     * @return the scan corresponding to the query plan
     */
    public Plan createQueryPlan(String qry, Transaction tx) {
+	  System.out.println("Calling createQueryPlan");
       Parser parser = new Parser(qry);
       QueryData data = parser.query();
       return qplanner.createPlan(data, tx);
