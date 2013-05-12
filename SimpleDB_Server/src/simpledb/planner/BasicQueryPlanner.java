@@ -6,6 +6,8 @@ import simpledb.parse.*;
 import simpledb.server.SimpleDB;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 /**
  * The simplest, most naive query planner possible.
  * @author Edward Sciore
@@ -18,6 +20,7 @@ public class BasicQueryPlanner implements QueryPlanner {
     * and finally it projects on the field list. 
     */
    public Plan createPlan(QueryData data, Transaction tx) {
+	   
       //Step 1: Create a plan for each mentioned table or view
       List<Plan> plans = new ArrayList<Plan>();
       for (String tblname : data.tables()) {
@@ -35,10 +38,18 @@ public class BasicQueryPlanner implements QueryPlanner {
       
       //TODO Insert our code here!
       
-      System.out.println("Right before nested terms handling in BasicQueryPlanner");
       
       if(!data.pred().nestedTerms().isEmpty()){
     	  for(NestedTerm term : data.pred().nestedTerms()){
+    		  
+    		  QueryData nestedQuery = term.getQueryData();
+    		  JOptionPane.showMessageDialog(null, nestedQuery.toString());
+    		  Plan nestedPlan = createPlan(nestedQuery,tx);
+    		  Scan nestedScan = nestedPlan.open();
+    		  //while(nestedScan.next()){
+    			  //JOptionPane.showMessageDialog(null, nestedScan.getString("sname"));
+    		  //}
+    		  
     		  if(term.getNegated()){
     			  p = new AntijoinPlan(p, createPlan(term.getQueryData(),tx), term.getNestedPred());
     		  } else{
@@ -47,8 +58,6 @@ public class BasicQueryPlanner implements QueryPlanner {
     	  }
       }
       
-      System.out.println("Right after nested terms handling in BasicQueryPlanner");
-
       
       //Step 3: Add a selection plan for the predicate
       p = new SelectPlan(p, data.pred().simplePred());

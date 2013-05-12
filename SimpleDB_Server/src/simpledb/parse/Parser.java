@@ -1,6 +1,9 @@
 package simpledb.parse;
 
 import java.util.*;
+
+import javax.swing.JOptionPane;
+
 import simpledb.query.*;
 import simpledb.record.Schema;
 
@@ -41,7 +44,6 @@ public class Parser {
 
 	public Term term() {
 		if (lex.matchId()){
-			System.out.println("Legal identifier in term() method in Parser class");
 			return fieldFirstTerm();
 		}
 		else
@@ -66,7 +68,8 @@ public class Parser {
 			lex.eatDelim('(');
 			QueryData qd = query(); //Probably assumes that the nested term always is the last term.
 			lex.eatDelim(')');
-			return new NestedTerm(fldname, qd, negated, fieldDefs());
+			JOptionPane.showMessageDialog(null, "Ate a nested term including brackets in parser");
+			return new NestedTerm(fldname, qd, negated);
 		}
 	}
 
@@ -96,9 +99,7 @@ public class Parser {
 	// Methods for parsing queries
 
 	public QueryData query() {
-		
-		System.out.println("Getting query data from Parser Class");
-		
+				
 		lex.eatKeyword("select");
 		Collection<String> fields = selectList();
 		lex.eatKeyword("from");

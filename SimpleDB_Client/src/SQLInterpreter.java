@@ -2,6 +2,8 @@ import java.sql.*;
 import simpledb.remote.SimpleDriver;
 import java.io.*;
 
+import javax.swing.JOptionPane;
+
 public class SQLInterpreter {
     private static Connection conn = null;
 

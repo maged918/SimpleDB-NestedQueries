@@ -1,5 +1,7 @@
 package simpledb.planner;
 
+import javax.swing.JOptionPane;
+
 import simpledb.tx.Transaction;
 import simpledb.parse.*;
 import simpledb.query.*;
@@ -24,10 +26,11 @@ public class Planner {
     * @return the scan corresponding to the query plan
     */
    public Plan createQueryPlan(String qry, Transaction tx) {
-	  System.out.println("Calling createQueryPlan");
       Parser parser = new Parser(qry);
       QueryData data = parser.query();
+      JOptionPane.showMessageDialog(null, data.toString());
       return qplanner.createPlan(data, tx);
+      //return qplanner.createPlan(data.pred().nestedTerms().iterator().next().getQueryData(), tx); //Testing correctness of inner query plan
    }
    
    /**

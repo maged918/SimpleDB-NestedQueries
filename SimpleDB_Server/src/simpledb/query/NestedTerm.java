@@ -10,13 +10,12 @@ public class NestedTerm implements Term {
 	private boolean negated;
 	private Predicate nestedPred;
 	private String fldname;
-	private Schema schema;
 
-	public NestedTerm(String fldname, QueryData nestedQuery, boolean negated, Schema schema) {
+	public NestedTerm(String fldname, QueryData nestedQuery, boolean negated) {
 		this.nestedQuery = nestedQuery;
 		this.negated = negated;
 		this.fldname = fldname;
-		this.schema = schema; //Probably not very important?
+		//this.schema = schema; //Probably not very important?
 		String nestedfldname = nestedQuery.fields().iterator().next();
 		Expression exp1 = new FieldNameExpression(fldname);
 		Expression exp2 = new FieldNameExpression(nestedfldname);

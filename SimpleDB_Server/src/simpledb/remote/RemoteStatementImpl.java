@@ -6,6 +6,8 @@ import simpledb.server.SimpleDB;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import javax.swing.JOptionPane;
+
 /**
  * The RMI server-side implementation of RemoteStatement.
  * @author Edward Sciore
@@ -27,7 +29,7 @@ class RemoteStatementImpl extends UnicastRemoteObject implements RemoteStatement
     */
    public RemoteResultSet executeQuery(String qry) throws RemoteException {
       try {
-         Transaction tx = rconn.getTransaction();
+    	 Transaction tx = rconn.getTransaction();
          Plan pln = SimpleDB.planner().createQueryPlan(qry, tx);
          return new RemoteResultSetImpl(pln, rconn);
       }

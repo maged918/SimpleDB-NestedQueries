@@ -1,5 +1,7 @@
 package simpledb.query;
 
+import javax.swing.JOptionPane;
+
 //The crucial method is next. For each record in s1,
 //the code searches for a matching s2 record. 
 //if one is found, the method returns true; otherwise, the next s1 record is considered. 
@@ -11,6 +13,12 @@ public class SemijoinScan implements Scan {
 		this.s1 = s1;
 		this.s2 = s2;
 		this.pred = pred;
+		
+/*		while(s2.next()){
+			JOptionPane.showMessageDialog(null, s2.getString("sname"));
+		} Confirmed that s2 is the scan of the inner query */
+		
+		JOptionPane.showMessageDialog(null, pred.toString());
 	}
 
 	public void beforeFirst() {
