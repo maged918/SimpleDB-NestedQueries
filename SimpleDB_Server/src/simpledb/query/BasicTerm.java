@@ -116,7 +116,7 @@ public class BasicTerm implements Term{
    public boolean isSatisfied(Scan s) {
       Constant lhsval = lhs.evaluate(s);
       Constant rhsval = rhs.evaluate(s);
-      JOptionPane.showMessageDialog(null, lhsval.toString() + " is maybe equal to " + rhsval.toString());
+      //JOptionPane.showMessageDialog(null, lhsval.toString() + " is maybe equal to " + rhsval.toString());
       return rhsval.equals(lhsval);
    }
    

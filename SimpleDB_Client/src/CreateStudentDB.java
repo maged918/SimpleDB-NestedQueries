@@ -82,6 +82,20 @@ public class CreateStudentDB {
 			for (int i=0; i<enrollvals.length; i++)
 				stmt.executeUpdate(s + enrollvals[i]);
 			System.out.println("ENROLL records inserted.");
+			
+			s = "create table IDs(identification int)";
+			stmt.executeUpdate(s);
+			System.out.println("Table IDs created.");
+			
+			s = "insert into IDs(identification) values ";
+			String[] IDvals = {"(1)",
+								   "(2)",
+								   "(3)",
+								   "(4)",
+								   "(5)"};
+			for (int i=0; i<IDvals.length; i++)
+				stmt.executeUpdate(s + IDvals[i]);
+			System.out.println("ID records inserted.");
 
 		}
 		catch(SQLException e) {
