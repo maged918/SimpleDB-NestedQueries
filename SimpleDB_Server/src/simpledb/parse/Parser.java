@@ -68,7 +68,6 @@ public class Parser {
 			lex.eatDelim('(');
 			QueryData qd = query(); //Probably assumes that the nested term always is the last term.
 			lex.eatDelim(')');
-			JOptionPane.showMessageDialog(null, "Ate a nested term including brackets in parser");
 			return new NestedTerm(fldname, qd, negated);
 		}
 	}

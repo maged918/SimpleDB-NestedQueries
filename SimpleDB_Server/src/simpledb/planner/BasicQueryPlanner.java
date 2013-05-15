@@ -36,20 +36,11 @@ public class BasicQueryPlanner implements QueryPlanner {
       for (Plan nextplan : plans)
          p = new ProductPlan(p, nextplan);
       
-      //TODO Insert our code here!
+      //Semijoin and Antijoin --> Nested Queries!
       
       
       if(!data.pred().nestedTerms().isEmpty()){
     	  for(NestedTerm term : data.pred().nestedTerms()){
-    		  
-    		  QueryData nestedQuery = term.getQueryData();
-    		  JOptionPane.showMessageDialog(null, nestedQuery.toString());
-    		  Plan nestedPlan = createPlan(nestedQuery,tx);
-    		  Scan nestedScan = nestedPlan.open();
-    		  //while(nestedScan.next()){
-    			  //JOptionPane.showMessageDialog(null, nestedScan.getString("sname"));
-    		  //}
-    		  
     		  if(term.getNegated()){
     			  p = new AntijoinPlan(p, createPlan(term.getQueryData(),tx), term.getNestedPred());
     		  } else{

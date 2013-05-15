@@ -28,7 +28,7 @@ public class Planner {
    public Plan createQueryPlan(String qry, Transaction tx) {
       Parser parser = new Parser(qry);
       QueryData data = parser.query();
-      JOptionPane.showMessageDialog(null, data.toString());
+      JOptionPane.showMessageDialog(null, "Evaluating query: " + data.toString());
       return qplanner.createPlan(data, tx);
       //return qplanner.createPlan(data.pred().nestedTerms().iterator().next().getQueryData(), tx); //Testing correctness of inner query plan
    }
